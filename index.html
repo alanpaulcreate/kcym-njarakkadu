@@ -1,30 +1,44 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Youth Day registration for KCYM Njarakkadu Unit. Join us for a day of faith, energy, and community." />
+  <meta name="description"
+    content="Youth Day registration for KCYM Njarakkadu Unit. Join us for a day of faith, energy, and community." />
   <title>Youth Day | KCYM Njarakkadu Unit</title>
   <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/en/e/e3/Kcym_state_logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,500&display=swap"
+    rel="stylesheet">
   <style>
     :root {
-      --red:        #a80f19;
-      --red-deep:   #6b0811;
-      --red-muted:  #c94040;
-      --gold:       #d4a017;
+      --red: #a80f19;
+      --red-deep: #6b0811;
+      --red-muted: #c94040;
+      --gold: #d4a017;
       --gold-light: #f4c430;
-      --cream:      #faf8f3;
+      --cream: #faf8f3;
       --cream-dark: #f0ece0;
-      --text:       #1a0a0a;
-      --text-mid:   #4a2020;
-      --text-soft:  #7a4040;
+      --text: #1a0a0a;
+      --text-mid: #4a2020;
+      --text-soft: #7a4040;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
@@ -35,346 +49,686 @@
 
     /* ─── LOADER ─────────────────────────────── */
     #loader {
-      position: fixed; inset: 0; z-index: 9000;
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
       background: var(--cream);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
       transition: opacity .4s ease, visibility .4s ease;
     }
-    #loader.out { opacity: 0; visibility: hidden; pointer-events: none; }
+
+    #loader.out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
 
     .loader-brand {
       position: relative;
-      width: 64px; height: 64px;
-      display: flex; align-items: center; justify-content: center;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
     .loader-logo {
-      width: 44px; height: 44px;
+      width: 44px;
+      height: 44px;
       object-fit: contain;
       animation: logoPulse 1.6s ease-in-out infinite alternate;
     }
+
     .loader-spinner {
-      position: absolute; inset: 0;
-      border: 2px solid rgba(168,15,25,0.12);
+      position: absolute;
+      inset: 0;
+      border: 2px solid rgba(168, 15, 25, 0.12);
       border-top-color: var(--red);
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes logoPulse { 0% { transform: scale(0.94); opacity: 0.85; } 100% { transform: scale(1.04); opacity: 1; } }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes logoPulse {
+      0% {
+        transform: scale(0.94);
+        opacity: 0.85;
+      }
+
+      100% {
+        transform: scale(1.04);
+        opacity: 1;
+      }
+    }
 
     .loader-status {
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
     }
+
     .loader-bar {
-      width: 140px; height: 3px;
-      background: rgba(168,15,25,0.1); border-radius: 99px; overflow: hidden;
+      width: 140px;
+      height: 3px;
+      background: rgba(168, 15, 25, 0.1);
+      border-radius: 99px;
+      overflow: hidden;
     }
+
     .loader-bar-fill {
-      height: 100%; border-radius: 99px;
+      height: 100%;
+      border-radius: 99px;
       background: var(--red);
       animation: lfill 2.5s ease-in-out forwards;
     }
+
     @keyframes lfill {
-      0%{width:0} 45%{width:60%} 80%{width:85%} 100%{width:100%}
+      0% {
+        width: 0
+      }
+
+      45% {
+        width: 60%
+      }
+
+      80% {
+        width: 85%
+      }
+
+      100% {
+        width: 100%
+      }
     }
+
     .loader-text {
-      font-family: 'Inter', sans-serif; font-size: .62rem; font-weight: 600;
-      letter-spacing: .22em; text-transform: uppercase; color: var(--red-deep);
+      font-family: 'Inter', sans-serif;
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--red-deep);
       opacity: 0.75;
     }
 
     /* ─── HEADER ─────────────────────────────── */
     .header {
-      position: sticky; top: 0; z-index: 100;
+      position: sticky;
+      top: 0;
+      z-index: 100;
       background: var(--cream);
-      border-bottom: 1px solid rgba(168,15,25,.12);
+      border-bottom: 1px solid rgba(168, 15, 25, .12);
     }
+
     .header-inner {
-      max-width: 1160px; margin: 0 auto;
+      max-width: 1160px;
+      margin: 0 auto;
       padding: 0 28px;
       height: 68px;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
     }
+
     .logo-group {
-      display: flex; align-items: center; gap: 11px;
-      text-decoration: none; color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      color: inherit;
     }
+
     .logo-img {
-      width: 40px; height: 40px;
-      object-fit: contain; display: block;
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      display: block;
     }
+
     .logo-text {
-      display: flex; flex-direction: column; gap: 1px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
     }
+
     .logo-name {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: .95rem; font-weight: 700;
-      color: var(--red-deep); line-height: 1.2;
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--red-deep);
+      line-height: 1.2;
     }
+
     .logo-sub {
-      font-size: .6rem; font-weight: 600;
-      letter-spacing: .14em; text-transform: uppercase;
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
       color: var(--text-soft);
     }
+
     .header-cta {
-      display: inline-flex; align-items: center;
-      padding: 8px 20px; border-radius: 2px;
-      background: var(--red); color: #fff;
-      font-size: .72rem; font-weight: 600;
-      letter-spacing: .06em; text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 20px;
+      border-radius: 2px;
+      background: var(--red);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-decoration: none;
       transition: background .2s;
     }
-    .header-cta:hover { background: var(--red-deep); }
+
+    .header-cta:hover {
+      background: var(--red-deep);
+    }
 
     /* ─── HERO ───────────────────────────────── */
     .hero {
-      max-width: 1160px; margin: 0 auto;
+      max-width: 1160px;
+      margin: 0 auto;
       padding: 80px 28px 72px;
       display: grid;
       grid-template-columns: 1fr 340px;
-      gap: 60px; align-items: center;
+      gap: 60px;
+      align-items: center;
     }
+
     .tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: .65rem; font-weight: 700; letter-spacing: .2em;
-      text-transform: uppercase; color: var(--red); margin-bottom: 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 22px;
     }
+
     .tag::before {
-      content: ''; display: block;
-      width: 28px; height: 2px; background: var(--gold-light);
+      content: '';
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: var(--gold-light);
     }
+
     h1 {
       font-family: 'Playfair Display', Georgia, serif;
       font-size: clamp(2.6rem, 6vw, 5.2rem);
-      font-weight: 700; line-height: 1.08;
-      color: var(--red-deep); letter-spacing: -.02em;
+      font-weight: 700;
+      line-height: 1.08;
+      color: var(--red-deep);
+      letter-spacing: -.02em;
     }
+
     h1 em {
-      font-style: italic; color: var(--red); font-weight: 500;
+      font-style: italic;
+      color: var(--red);
+      font-weight: 500;
     }
+
     .hero-sub {
       margin-top: 20px;
       font-size: clamp(.9rem, 1.5vw, 1.05rem);
-      color: var(--text-mid); line-height: 1.7; max-width: 440px;
+      color: var(--text-mid);
+      line-height: 1.7;
+      max-width: 440px;
     }
+
     .hero-actions {
-      margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+      margin-top: 36px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
     }
+
     .btn-primary {
-      padding: 13px 28px; background: var(--red); color: #fff;
-      font-weight: 600; font-size: .85rem; letter-spacing: .04em;
-      text-decoration: none; border-radius: 2px;
+      padding: 13px 28px;
+      background: var(--red);
+      color: #fff;
+      font-weight: 600;
+      font-size: .85rem;
+      letter-spacing: .04em;
+      text-decoration: none;
+      border-radius: 2px;
       transition: background .2s, transform .15s;
     }
-    .btn-primary:hover { background: var(--red-deep); transform: translateY(-1px); }
+
+    .btn-primary:hover {
+      background: var(--red-deep);
+      transform: translateY(-1px);
+    }
+
     .btn-ghost {
-      padding: 13px 24px; color: var(--red);
-      font-weight: 600; font-size: .85rem; letter-spacing: .04em;
+      padding: 13px 24px;
+      color: var(--red);
+      font-weight: 600;
+      font-size: .85rem;
+      letter-spacing: .04em;
       text-decoration: none;
       border-bottom: 2px solid var(--gold-light);
       transition: border-color .2s;
     }
-    .btn-ghost:hover { border-color: var(--red); }
+
+    .btn-ghost:hover {
+      border-color: var(--red);
+    }
 
     /* Hero info card */
     .hero-card {
       background: var(--red-deep);
-      color: #fff; padding: 36px 30px;
+      color: #fff;
+      padding: 36px 30px;
     }
+
     .hero-card-label {
-      font-size: .58rem; font-weight: 700;
-      letter-spacing: .2em; text-transform: uppercase;
-      color: var(--gold-light); margin-bottom: 28px;
-      display: flex; align-items: center; gap: 8px;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+
     .hero-card-label::after {
-      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.15);
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, .15);
     }
+
     .hero-card h2 {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.5rem; font-weight: 700; line-height: 1.3;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.3;
       margin-bottom: 12px;
     }
+
     .hero-card p {
-      font-size: .8rem; line-height: 1.7;
-      color: rgba(255,255,255,.72);
+      font-size: .8rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .72);
     }
+
     .hero-card-divider {
-      margin: 24px 0; border: 0;
-      border-top: 1px solid rgba(255,255,255,.14);
+      margin: 24px 0;
+      border: 0;
+      border-top: 1px solid rgba(255, 255, 255, .14);
     }
+
     .hero-card-meta {
-      display: flex; flex-direction: column; gap: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
+
     .meta-row {
-      display: flex; align-items: center; gap: 10px;
-      font-size: .75rem; color: rgba(255,255,255,.8);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .75rem;
+      color: rgba(255, 255, 255, .8);
     }
+
     .meta-dot {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: var(--gold-light); flex-shrink: 0;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold-light);
+      flex-shrink: 0;
     }
 
     /* ─── STATS BAR ──────────────────────────── */
     .stats {
       background: var(--cream-dark);
-      border-top: 1px solid rgba(168,15,25,.1);
-      border-bottom: 1px solid rgba(168,15,25,.1);
+      border-top: 1px solid rgba(168, 15, 25, .1);
+      border-bottom: 1px solid rgba(168, 15, 25, .1);
     }
+
     .stats-inner {
-      max-width: 1160px; margin: 0 auto; padding: 0 28px;
-      display: grid; grid-template-columns: repeat(3,1fr);
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
     }
+
     .stat {
       padding: 26px 0;
-      display: flex; flex-direction: column; gap: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
-    .stat + .stat { border-left: 1px solid rgba(168,15,25,.12); padding-left: 28px; }
+
+    .stat+.stat {
+      border-left: 1px solid rgba(168, 15, 25, .12);
+      padding-left: 28px;
+    }
+
     .stat-label {
-      font-size: .6rem; font-weight: 700; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--text-soft);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--text-soft);
     }
+
     .stat-value {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.1rem; font-weight: 700; color: var(--red-deep);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--red-deep);
     }
 
     /* ─── FORM SECTION ───────────────────────── */
     .form-section {
-      max-width: 1160px; margin: 72px auto;
+      max-width: 1160px;
+      margin: 72px auto;
       padding: 0 28px;
     }
+
     .section-label {
-      font-size: .6rem; font-weight: 700; letter-spacing: .2em;
-      text-transform: uppercase; color: var(--red);
-      display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
     }
+
     .section-label::before {
-      content: ''; width: 22px; height: 2px; background: var(--gold-light);
+      content: '';
+      width: 22px;
+      height: 2px;
+      background: var(--gold-light);
     }
+
     .section-title {
       font-family: 'Playfair Display', Georgia, serif;
       font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 700; color: var(--red-deep);
-      letter-spacing: -.02em; margin-bottom: 6px;
+      font-weight: 700;
+      color: var(--red-deep);
+      letter-spacing: -.02em;
+      margin-bottom: 6px;
     }
+
     .section-desc {
-      font-size: .85rem; color: var(--text-soft); margin-bottom: 36px;
+      font-size: .85rem;
+      color: var(--text-soft);
+      margin-bottom: 36px;
     }
+
     .form-wrap {
       background: #fff;
-      border: 1px solid rgba(168,15,25,.12);
+      border: 1px solid rgba(168, 15, 25, .12);
     }
+
     .form-wrap iframe {
-      display: block; width: 100%;
-      min-height: 920px; border: none;
+      display: block;
+      width: 100%;
+      min-height: 920px;
+      border: none;
     }
 
     /* ─── INSTAGRAM ──────────────────────────── */
     .insta-section {
       background: var(--cream-dark);
-      border-top: 1px solid rgba(168,15,25,.1);
+      border-top: 1px solid rgba(168, 15, 25, .1);
       padding: 72px 0;
     }
+
     .insta-inner {
-      max-width: 1160px; margin: 0 auto; padding: 0 28px;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 28px;
     }
+
     .insta-top {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      gap: 16px; flex-wrap: wrap; margin-bottom: 36px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
     }
+
     .insta-handle {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700;
-      color: var(--red-deep); letter-spacing: -.02em;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--red-deep);
+      letter-spacing: -.02em;
     }
+
     .insta-link {
-      font-size: .72rem; font-weight: 600; letter-spacing: .08em;
-      color: var(--red); text-decoration: none;
-      padding-bottom: 2px; border-bottom: 2px solid var(--gold-light);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      color: var(--red);
+      text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 2px solid var(--gold-light);
       transition: border-color .2s;
     }
-    .insta-link:hover { border-color: var(--red); }
-    .posts {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 16px;
+
+    .insta-link:hover {
+      border-color: var(--red);
     }
+
+    .posts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
     .post {
       background: #fff;
-      border: 1px solid rgba(168,15,25,.1);
-      overflow: hidden; min-height: 340px;
-      display: flex; align-items: flex-start;
+      border: 1px solid rgba(168, 15, 25, .1);
+      overflow: hidden;
+      min-height: 340px;
+      display: flex;
+      align-items: flex-start;
     }
+
     .post .instagram-media {
-      min-width: 0 !important; width: 100% !important;
-      max-width: 100% !important; margin: 0 !important;
-      border: none !important; border-radius: 0 !important;
+      min-width: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      border: none !important;
+      border-radius: 0 !important;
       box-shadow: none !important;
     }
 
     /* ─── FOOTER ─────────────────────────────── */
     .footer {
-      border-top: 1px solid rgba(168,15,25,.12);
+      border-top: 1px solid rgba(168, 15, 25, .12);
       background: var(--cream);
     }
+
     .footer-inner {
-      max-width: 1160px; margin: 0 auto; padding: 32px 28px;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 32px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
     }
+
     .footer-brand {
-      display: flex; align-items: center; gap: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
+
     .footer-logo {
-      width: 32px; height: 32px; object-fit: contain; display: block;
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      display: block;
     }
+
     .footer-name {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: .88rem; font-weight: 700; color: var(--red-deep);
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--red-deep);
     }
+
     .footer-copy {
-      font-size: .65rem; color: var(--text-soft); letter-spacing: .06em;
+      font-size: .65rem;
+      color: var(--text-soft);
+      letter-spacing: .06em;
     }
 
     /* ─── REVEAL ANIMATION ───────────────────── */
     @media (prefers-reduced-motion: no-preference) {
-      .hero-copy, .hero-card, .stats, .form-section, .insta-section {
+
+      .hero-copy,
+      .hero-card,
+      .stats,
+      .form-section,
+      .insta-section {
         animation: fadeup 500ms ease both;
       }
-      .hero-card  { animation-delay: 80ms; }
-      .stats      { animation-delay: 140ms; }
-      .form-section { animation-delay: 200ms; }
+
+      .hero-card {
+        animation-delay: 80ms;
+      }
+
+      .stats {
+        animation-delay: 140ms;
+      }
+
+      .form-section {
+        animation-delay: 200ms;
+      }
     }
+
     @keyframes fadeup {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* ─── RESPONSIVE ─────────────────────────── */
     @media (max-width: 860px) {
-      .hero { grid-template-columns: 1fr; gap: 40px; }
-      .hero-card { max-width: 420px; }
-      .posts { grid-template-columns: 1fr 1fr; }
-      .post:last-child { display: none; }
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero-card {
+        max-width: 420px;
+      }
+
+      .posts {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .post:last-child {
+        display: none;
+      }
     }
+
     @media (max-width: 600px) {
-      .header-inner { padding: 0 18px; }
-      .hero { padding: 52px 18px 56px; gap: 32px; }
-      .stats-inner { grid-template-columns: 1fr; }
-      .stat + .stat { border-left: 0; border-top: 1px solid rgba(168,15,25,.12); padding-left: 0; }
-      .form-section { padding: 0 18px; margin: 52px auto; }
-      .insta-inner  { padding: 0 18px; }
-      .insta-section { padding: 52px 0; }
-      .posts { grid-template-columns: 1fr; }
-      .post:last-child { display: flex; }
-      .footer-inner { padding: 24px 18px; flex-direction: column; align-items: flex-start; gap: 10px; }
-      .form-wrap iframe { min-height: 980px; }
+      .header-inner {
+        padding: 0 18px;
+      }
+
+      .hero {
+        padding: 52px 18px 56px;
+        gap: 32px;
+      }
+
+      .stats-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .stat+.stat {
+        border-left: 0;
+        border-top: 1px solid rgba(168, 15, 25, .12);
+        padding-left: 0;
+      }
+
+      .form-section {
+        padding: 0 18px;
+        margin: 52px auto;
+      }
+
+      .insta-inner {
+        padding: 0 18px;
+      }
+
+      .insta-section {
+        padding: 52px 0;
+      }
+
+      .posts {
+        grid-template-columns: 1fr;
+      }
+
+      .post:last-child {
+        display: flex;
+      }
+
+      .footer-inner {
+        padding: 24px 18px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .form-wrap iframe {
+        min-height: 980px;
+      }
     }
+
     @media (max-width: 400px) {
-      h1 { font-size: 2.2rem; }
-      .header-cta { display: none; }
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .header-cta {
+        display: none;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- LOADER -->
@@ -411,11 +765,13 @@
       <p class="tag">Kerala Catholic Youth Movement</p>
       <h1 id="hero-title">Youth Day<br><em>Registration</em></h1>
       <p class="hero-sub">
-        Join us for a day of faith, energy, and community. Fill in your details below to reserve your spot at this year's Youth Day.
+        Join us for a day of faith, energy, and community. Fill in your details below to reserve your spot at this
+        year's Youth Day.
       </p>
       <div class="hero-actions">
         <a class="btn-primary" href="#register">Fill the Form</a>
-        <a class="btn-ghost" href="https://www.instagram.com/kcymnjarakkaduofficial/" target="_blank" rel="noopener">Follow us</a>
+        <a class="btn-ghost" href="https://www.instagram.com/kcymnjarakkaduofficial/" target="_blank"
+          rel="noopener">Follow us</a>
       </div>
     </div>
 
@@ -458,8 +814,8 @@
     <div class="form-wrap">
       <iframe
         src="https://docs.google.com/forms/d/e/1FAIpQLSc9TqM3eY4PTb4KQi0S50X3CZ6hB6GE4LeMEo8ekvmYuhj8XA/viewform?embedded=true"
-        width="100%" height="1045" frameborder="0" marginheight="0" marginwidth="0"
-        title="Youth Day Registration Form" loading="lazy">
+        width="100%" height="1045" frameborder="0" marginheight="0" marginwidth="0" title="Youth Day Registration Form"
+        loading="lazy">
         Loading form…
       </iframe>
     </div>
@@ -473,7 +829,8 @@
           <p class="section-label">Follow Along</p>
           <h2 class="insta-handle" id="insta-title">@kcymnjarakkaduofficial</h2>
         </div>
-        <a class="insta-link" href="https://www.instagram.com/kcymnjarakkaduofficial/" target="_blank" rel="noopener noreferrer">View on Instagram</a>
+        <a class="insta-link" href="https://www.instagram.com/kcymnjarakkaduofficial/" target="_blank"
+          rel="noopener noreferrer">View on Instagram</a>
       </div>
 
       <div class="posts">
@@ -484,7 +841,8 @@
             style="background:#FFF;border:0;border-radius:0;box-shadow:none;margin:0;max-width:none;min-width:0;padding:0;width:100%;">
             <div style="padding:16px;">
               <a href="https://www.instagram.com/p/DbDteTME99F/?utm_source=ig_embed&utm_campaign=loading"
-                style="background:#FFF;line-height:0;padding:0;text-align:center;text-decoration:none;width:100%" target="_blank">
+                style="background:#FFF;line-height:0;padding:0;text-align:center;text-decoration:none;width:100%"
+                target="_blank">
                 <div style="display:flex;flex-direction:row;align-items:center;">
                   <div style="background:#F4F4F4;border-radius:50%;height:40px;margin-right:14px;width:40px;"></div>
                   <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;">
@@ -493,11 +851,47 @@
                   </div>
                 </div>
                 <div style="padding:19% 0;"></div>
-                <div style="color:#3897f0;font-family:Arial,sans-serif;font-size:14px;font-weight:600;padding-top:8px;">View this post on Instagram</div>
+                <div style="color:#3897f0;font-family:Arial,sans-serif;font-size:14px;font-weight:600;padding-top:8px;">
+                  View this post on Instagram</div>
               </a>
-              <p style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;margin:8px 0 0;padding:8px 0 6px;text-align:center;">
+              <p
+                style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;margin:8px 0 0;padding:8px 0 6px;text-align:center;">
                 <a href="https://www.instagram.com/p/DbDteTME99F/?utm_source=ig_embed&utm_campaign=loading"
-                  style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;" target="_blank">
+                  style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;"
+                  target="_blank">
+                  A post shared by St Joseph's KCYM NJARAKKADU (@kcymnjarakkaduofficial)</a>
+              </p>
+            </div>
+          </blockquote>
+        </div>
+
+
+
+        <div class="post">
+          <blockquote class="instagram-media"
+            data-instgrm-permalink="https://www.instagram.com/p/DbA6ibRkx6T/?utm_source=ig_embed&utm_campaign=loading"
+            data-instgrm-version="14"
+            style="background:#FFF;border:0;border-radius:0;box-shadow:none;margin:0;max-width:none;min-width:0;padding:0;width:100%;">
+            <div style="padding:16px;">
+              <a href="https://www.instagram.com/p/DbA6ibRkx6T/?utm_source=ig_embed&utm_campaign=loading"
+                style="background:#FFF;line-height:0;padding:0;text-align:center;text-decoration:none;width:100%"
+                target="_blank">
+                <div style="display:flex;flex-direction:row;align-items:center;">
+                  <div style="background:#F4F4F4;border-radius:50%;height:40px;margin-right:14px;width:40px;"></div>
+                  <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;">
+                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;"></div>
+                    <div style="background:#F4F4F4;border-radius:4px;height:14px;width:60px;"></div>
+                  </div>
+                </div>
+                <div style="padding:19% 0;"></div>
+                <div style="color:#3897f0;font-family:Arial,sans-serif;font-size:14px;font-weight:600;padding-top:8px;">
+                  View this post on Instagram</div>
+              </a>
+              <p
+                style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;margin:8px 0 0;padding:8px 0 6px;text-align:center;">
+                <a href="https://www.instagram.com/p/DbA6ibRkx6T/?utm_source=ig_embed&utm_campaign=loading"
+                  style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;"
+                  target="_blank">
                   A post shared by St Joseph's KCYM NJARAKKADU (@kcymnjarakkaduofficial)</a>
               </p>
             </div>
@@ -511,7 +905,8 @@
             style="background:#FFF;border:0;border-radius:0;box-shadow:none;margin:0;max-width:none;min-width:0;padding:0;width:100%;">
             <div style="padding:16px;">
               <a href="https://www.instagram.com/p/Da767lhTXL7/?utm_source=ig_embed&utm_campaign=loading"
-                style="background:#FFF;line-height:0;padding:0;text-align:center;text-decoration:none;width:100%" target="_blank">
+                style="background:#FFF;line-height:0;padding:0;text-align:center;text-decoration:none;width:100%"
+                target="_blank">
                 <div style="display:flex;flex-direction:row;align-items:center;">
                   <div style="background:#F4F4F4;border-radius:50%;height:40px;margin-right:14px;width:40px;"></div>
                   <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;">
@@ -520,38 +915,14 @@
                   </div>
                 </div>
                 <div style="padding:19% 0;"></div>
-                <div style="color:#3897f0;font-family:Arial,sans-serif;font-size:14px;font-weight:600;padding-top:8px;">View this post on Instagram</div>
+                <div style="color:#3897f0;font-family:Arial,sans-serif;font-size:14px;font-weight:600;padding-top:8px;">
+                  View this post on Instagram</div>
               </a>
-              <p style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;margin:8px 0 0;padding:8px 0 6px;text-align:center;">
+              <p
+                style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;margin:8px 0 0;padding:8px 0 6px;text-align:center;">
                 <a href="https://www.instagram.com/p/Da767lhTXL7/?utm_source=ig_embed&utm_campaign=loading"
-                  style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;" target="_blank">
-                  A post shared by St Joseph's KCYM NJARAKKADU (@kcymnjarakkaduofficial)</a>
-              </p>
-            </div>
-          </blockquote>
-        </div>
-
-        <div class="post">
-          <blockquote class="instagram-media"
-            data-instgrm-permalink="https://www.instagram.com/p/DbA6ibRkx6T/?utm_source=ig_embed&utm_campaign=loading"
-            data-instgrm-version="14"
-            style="background:#FFF;border:0;border-radius:0;box-shadow:none;margin:0;max-width:none;min-width:0;padding:0;width:100%;">
-            <div style="padding:16px;">
-              <a href="https://www.instagram.com/p/DbA6ibRkx6T/?utm_source=ig_embed&utm_campaign=loading"
-                style="background:#FFF;line-height:0;padding:0;text-align:center;text-decoration:none;width:100%" target="_blank">
-                <div style="display:flex;flex-direction:row;align-items:center;">
-                  <div style="background:#F4F4F4;border-radius:50%;height:40px;margin-right:14px;width:40px;"></div>
-                  <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;">
-                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;"></div>
-                    <div style="background:#F4F4F4;border-radius:4px;height:14px;width:60px;"></div>
-                  </div>
-                </div>
-                <div style="padding:19% 0;"></div>
-                <div style="color:#3897f0;font-family:Arial,sans-serif;font-size:14px;font-weight:600;padding-top:8px;">View this post on Instagram</div>
-              </a>
-              <p style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;margin:8px 0 0;padding:8px 0 6px;text-align:center;">
-                <a href="https://www.instagram.com/p/DbA6ibRkx6T/?utm_source=ig_embed&utm_campaign=loading"
-                  style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;" target="_blank">
+                  style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;"
+                  target="_blank">
                   A post shared by St Joseph's KCYM NJARAKKADU (@kcymnjarakkaduofficial)</a>
               </p>
             </div>
@@ -565,7 +936,8 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <img class="footer-logo" src="https://yuvadeepthikcymkothamangalam.com/images/logo_history_1.jpg" alt="KCYM Logo">
+        <img class="footer-logo" src="https://yuvadeepthikcymkothamangalam.com/images/logo_history_1.jpg"
+          alt="KCYM Logo">
         <span class="footer-name">KCYM Njarakkadu Unit</span>
       </div>
       <span class="footer-copy">Kerala Catholic Youth Movement</span>
@@ -584,4 +956,5 @@
   </script>
 
 </body>
+
 </html>

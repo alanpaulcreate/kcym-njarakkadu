@@ -545,17 +545,16 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
-      max-width: 860px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
     .post {
       background: #fff;
       border: 1px solid rgba(168, 15, 25, .1);
-      overflow: hidden;
-      max-height: 400px;
       display: flex;
       align-items: flex-start;
+      justify-content: center;
     }
 
     .post .instagram-media {
@@ -658,34 +657,7 @@
       }
 
       .posts {
-        display: flex;
-        grid-template-columns: none;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 16px;
-        padding-bottom: 12px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        scrollbar-color: var(--red) transparent;
-      }
-
-      .posts::-webkit-scrollbar {
-        height: 4px;
-      }
-      .posts::-webkit-scrollbar-track {
-        background: rgba(168, 15, 25, 0.08);
-        border-radius: 99px;
-      }
-      .posts::-webkit-scrollbar-thumb {
-        background: var(--red);
-        border-radius: 99px;
-      }
-
-      .post {
-        flex: 0 0 85%;
-        max-width: 340px;
-        scroll-snap-align: center;
-        display: flex !important;
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -720,6 +692,11 @@
 
       .insta-section {
         padding: 52px 0;
+      }
+
+      .posts {
+        grid-template-columns: 1fr;
+        gap: 20px;
       }
 
       .footer-inner {

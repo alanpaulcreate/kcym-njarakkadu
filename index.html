@@ -658,11 +658,34 @@
       }
 
       .posts {
-        grid-template-columns: 1fr 1fr;
+        display: flex;
+        grid-template-columns: none;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding-bottom: 12px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--red) transparent;
       }
 
-      .post:last-child {
-        display: none;
+      .posts::-webkit-scrollbar {
+        height: 4px;
+      }
+      .posts::-webkit-scrollbar-track {
+        background: rgba(168, 15, 25, 0.08);
+        border-radius: 99px;
+      }
+      .posts::-webkit-scrollbar-thumb {
+        background: var(--red);
+        border-radius: 99px;
+      }
+
+      .post {
+        flex: 0 0 85%;
+        max-width: 340px;
+        scroll-snap-align: center;
+        display: flex !important;
       }
     }
 
@@ -697,14 +720,6 @@
 
       .insta-section {
         padding: 52px 0;
-      }
-
-      .posts {
-        grid-template-columns: 1fr;
-      }
-
-      .post:last-child {
-        display: flex;
       }
 
       .footer-inner {

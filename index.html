@@ -30,6 +30,7 @@
       --red-deep: #6b0811;
       --gold-light: #f4c430;
       --cream: #faf8f3;
+      --newcreamtrans: #f1f1f1dd;;
       --cream-dark: #f0ece0;
       --text: #1a0a0a;
       --text-mid: #4a2020;
@@ -61,7 +62,7 @@
       position: fixed;
       inset: 0;
       z-index: 9000;
-      background: var(--cream);
+      background: var(--newcreamtrans);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -592,13 +593,29 @@
     }
 
     .post {
-      background: #fff;
+      background: linear-gradient(90deg, #f8f8f8 25%, #f0f0f0 50%, #f8f8f8 75%);
+      background-size: 200% 100%;
+      animation: igShimmer 1.5s infinite linear;
       border: 1px solid rgba(168, 15, 25, .12);
       border-radius: 4px;
       overflow: hidden;
       height: 470px;
       display: flex;
       align-items: flex-start;
+      position: relative;
+    }
+
+    /* ─── INSTAGRAM SKELETON LOADER ─── */
+    @keyframes igShimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .instagram-media div[style*="#F4F4F4"],
+    .instagram-media div[style*="#f4f4f4"] {
+      background: linear-gradient(90deg, #f4f4f4 25%, #e8e8e8 50%, #f4f4f4 75%) !important;
+      background-size: 200% 100% !important;
+      animation: igShimmer 1.5s infinite linear !important;
     }
 
     .carousel-nav {
@@ -639,6 +656,119 @@
       border: none !important;
       border-radius: 0 !important;
       box-shadow: none !important;
+    }
+
+    /* ─── FEATURED VIDEO ───────────────────────── */
+    .featured-video-section {
+      background: var(--red-deep);
+      padding: 64px 0;
+    }
+
+    .featured-video-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .featured-video-copy {
+      color: #fff;
+    }
+
+    .featured-video-copy .section-label {
+      color: var(--gold-light);
+    }
+
+    .featured-video-copy .section-label::before {
+      background: var(--gold-light);
+    }
+
+    .featured-video-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -.02em;
+      margin-bottom: 10px;
+    }
+
+    .featured-video-desc {
+      font-size: .88rem;
+      color: rgba(255, 255, 255, .7);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .featured-video-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      color: var(--gold-light);
+      text-decoration: none;
+      border-bottom: 2px solid rgba(244, 196, 48, .35);
+      padding-bottom: 2px;
+      transition: border-color .2s;
+    }
+
+    .featured-video-link:hover {
+      border-color: var(--gold-light);
+    }
+
+    .featured-video-frame {
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+      height: 470px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .featured-video-frame .instagram-media,
+    .featured-video-frame iframe {
+      position: absolute !important;
+      top: -55px !important;
+      /* Crop top header */
+      left: -2px !important;
+      /* Hide IG border */
+      width: calc(100% + 4px) !important;
+      height: calc(100% + 115px) !important;
+      /* Crop bottom footer/likes */
+      max-width: none !important;
+      margin: 0 !important;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    @media (max-width: 860px) {
+      .featured-video-inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .featured-video-frame {
+        max-width: 310px;
+        height: 443px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .featured-video-section {
+        padding: 48px 0;
+      }
+
+      .featured-video-inner {
+        padding: 0 18px;
+      }
     }
 
     /* ─── FOOTER ─────────────────────────────── */
@@ -738,23 +868,21 @@
         gap: 16px;
         padding-bottom: 12px;
         -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        scrollbar-color: var(--red) transparent;
+        scrollbar-width: none;
+        cursor: grab;
+        user-select: none;
+      }
+
+      .posts.is-dragging {
+        cursor: grabbing;
+        scroll-snap-type: none;
       }
 
       .posts::-webkit-scrollbar {
-        height: 4px;
+        display: none;
       }
 
-      .posts::-webkit-scrollbar-track {
-        background: rgba(168, 15, 25, 0.08);
-        border-radius: 99px;
-      }
 
-      .posts::-webkit-scrollbar-thumb {
-        background: var(--red);
-        border-radius: 99px;
-      }
 
       .post {
         flex: 0 0 310px;
@@ -871,8 +999,8 @@
       <div class="hero-actions">
         <a class="btn-primary" href="#register">Fill the Form</a>
         <!-- <a class="btn-ghost" href="#schedule">View Schedule</a> -->
-        <a class="btn-ghost" href="https://www.instagram.com/kcymnjarakkaduofficial/" target="_blank"
-          rel="noopener">Follow us</a>
+        <a class="btn-ghost" href="https://www.instagram.com/kcym.njarakkadu/" target="_blank" rel="noopener">Follow
+          us</a>
       </div>
     </div>
 
@@ -884,7 +1012,7 @@
     </aside>
   </section>
 
-  <!-- REGISTRATION FORM -->
+  <!--REGISTRATION FORM-->
   <section class="form-section" id="register" aria-labelledby="form-title">
     <p class="section-label">Data Collection</p>
     <h2 class="section-title" id="form-title">Fill in Your Details</h2>
@@ -897,12 +1025,12 @@
       </iframe>
     </div>
     <div id="postSubmitAction" style="display: none; text-align: center; margin-top: 10px;">
-      <p style="margin-bottom: 18px; color: var(--text-mid); font-weight: 500;">Thanks for submitting your details!</p>
+      <p style="margin-bottom: 18px; color: var(--text-mid); font-weight: 500;">Thanks for submitting your details!
+      </p>
     </div>
   </section>
 
-  <!-- SCHEDULE (COMMENTED OUT FOR NOW)
-  <section class="schedule-section" id="schedule" aria-labelledby="schedule-title">
+  <!--section class="schedule-section" id="schedule" aria-labelledby="schedule-title">
     <p class="section-label">Itinerary</p>
     <h2 class="section-title" id="schedule-title">Program Schedule</h2>
     <p class="section-desc">Here is the detailed flow of events for Youth Day '26.</p>
@@ -1035,111 +1163,94 @@
       </div>
     </div>
     </div>
-  </section>
-  END SCHEDULE COMMENT -->
+  </section-->
 
-  <!-- INSTAGRAM (COMMENTED OUT FOR NOW)
+
+
+  <!-- FEATURED VIDEO -->
+  <section class="featured-video-section" aria-labelledby="video-title">
+    <div class="featured-video-inner">
+      <div class="featured-video-copy">
+        <p class="section-label">Youth Day '26</p>
+        <h2 class="featured-video-title" id="video-title">Watch the Highlights</h2>
+        <p class="featured-video-desc">Relive the energy, faith, and community of Youth Day 2026 — KCYM Njarakkadu's
+          annual celebration.</p>
+        <a class="featured-video-link" href="https://www.instagram.com/reel/DbU5OH5hvs1/" target="_blank"
+          rel="noopener noreferrer">
+          ▶&nbsp; Watch on Instagram
+        </a>
+      </div>
+      <div class="featured-video-frame">
+        <blockquote class="instagram-media"
+          data-instgrm-permalink="https://www.instagram.com/reel/DbU5OH5hvs1/?utm_source=ig_embed&utm_campaign=loading"
+          data-instgrm-version="14"
+          style="background:#FFF;border:0;border-radius:0;box-shadow:none;margin:0;max-width:none;min-width:0;padding:0;width:100%;">
+          <div style="padding:16px;">
+            <a href="https://www.instagram.com/reel/DbU5OH5hvs1/?utm_source=ig_embed&utm_campaign=loading"
+              style="background:#FFF;line-height:0;padding:0;text-align:center;text-decoration:none;width:100%"
+              target="_blank">
+              <div style="display:flex;flex-direction:row;align-items:center;">
+                <div style="background:#F4F4F4;border-radius:50%;height:40px;margin-right:14px;width:40px;"></div>
+                <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;">
+                  <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;"></div>
+                  <div style="background:#F4F4F4;border-radius:4px;height:14px;width:60px;"></div>
+                </div>
+              </div>
+              <div style="padding:19% 0;"></div>
+              <div style="color:#3897f0;font-family:Arial,sans-serif;font-size:14px;font-weight:600;padding-top:8px;">
+                View this post on Instagram</div>
+            </a>
+            <p
+              style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;margin:8px 0 0;padding:8px 0 6px;text-align:center;">
+              <a href="https://www.instagram.com/reel/DbU5OH5hvs1/?utm_source=ig_embed&utm_campaign=loading"
+                style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;" target="_blank">
+                A post shared by St Joseph's KCYM (@kcym.njarakkadu)</a>
+            </p>
+          </div>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
   <section class="insta-section" aria-labelledby="insta-title">
     <div class="insta-inner">
       <div class="insta-top">
         <div>
           <p class="section-label">Follow Along</p>
-          <h2 class="insta-handle" id="insta-title">@kcymnjarakkaduofficial</h2>
+          <h2 class="insta-handle" id="insta-title">@kcym.njarakkadu</h2>
         </div>
-        <a class="insta-link" href="https://www.instagram.com/kcymnjarakkaduofficial/" target="_blank"
+        <a class="insta-link" href="https://www.instagram.com/kcym.njarakkadu/" target="_blank"
           rel="noopener noreferrer">View on Instagram</a>
       </div>
       <div class="posts" id="instaPosts">
 
         <div class="post">
-          <blockquote class="instagram-media"
-            data-instgrm-permalink="https://www.instagram.com/p/DbM9zP2hFXk/?utm_source=ig_embed&amp;utm_campaign=loading"
+          <blockquote class="instagram-media" data-instgrm-captioned
+            data-instgrm-permalink="https://www.instagram.com/p/Dbdk2JFE37n/?utm_source=ig_embed&utm_campaign=loading"
             data-instgrm-version="14"
-            style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-            <div style="padding:16px;"> <a
-                href="https://www.instagram.com/p/DbM9zP2hFXk/?utm_source=ig_embed&amp;utm_campaign=loading"
-                style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;"
+            style="background:#FFF;border:0;border-radius:0;box-shadow:none;margin:0;max-width:none;min-width:0;padding:0;width:100%;">
+            <div style="padding:16px;">
+              <a href="https://www.instagram.com/p/Dbdk2JFE37n/?utm_source=ig_embed&utm_campaign=loading"
+                style="background:#FFF;line-height:0;padding:0;text-align:center;text-decoration:none;width:100%"
                 target="_blank">
-                <div style=" display: flex; flex-direction: row; align-items: center;">
-                  <div
-                    style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;">
-                  </div>
-                  <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">
-                    <div
-                      style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;">
+                <div style="display:flex;flex-direction:row;align-items:center;">
+                  <div style="background:#F4F4F4;border-radius:50%;height:40px;margin-right:14px;width:40px;"></div>
+                  <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;">
+                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;">
                     </div>
-                    <div
-                      style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;">
-                    </div>
+                    <div style="background:#F4F4F4;border-radius:4px;height:14px;width:60px;"></div>
                   </div>
                 </div>
-                <div style="padding: 19% 0;"></div>
-                <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px"
-                    viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg"
-                    xmlns:xlink="https://www.w3.org/1999/xlink">
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                      <g transform="translate(-511.000000, -20.000000)" fill="#000000">
-                        <g>
-                          <path
-                            d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631">
-                          </path>
-                        </g>
-                      </g>
-                    </g>
-                  </svg></div>
-                <div style="padding-top: 8px;">
-                  <div
-                    style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">
-                    View this post on Instagram</div>
-                </div>
-                <div style="padding: 12.5% 0;"></div>
-                <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
-                  <div>
-                    <div
-                      style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);">
-                    </div>
-                    <div
-                      style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;">
-                    </div>
-                    <div
-                      style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);">
-                    </div>
-                  </div>
-                  <div style="margin-left: 8px;">
-                    <div
-                      style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;">
-                    </div>
-                    <div
-                      style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)">
-                    </div>
-                  </div>
-                  <div style="margin-left: auto;">
-                    <div
-                      style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);">
-                    </div>
-                    <div
-                      style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);">
-                    </div>
-                    <div
-                      style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);">
-                    </div>
-                  </div>
-                </div>
-                <div
-                  style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;">
-                  <div
-                    style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;">
-                  </div>
-                  <div
-                    style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;">
-                  </div>
-                </div>
+                <div style="padding:19% 0;"></div>
+                <div style="color:#3897f0;font-family:Arial,sans-serif;font-size:14px;font-weight:600;padding-top:8px;">
+                  View this post on Instagram</div>
               </a>
               <p
-                style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">
-                <a href="https://www.instagram.com/p/DbM9zP2hFXk/?utm_source=ig_embed&amp;utm_campaign=loading"
-                  style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;"
-                  target="_blank">A post shared by St Joseph&#39;s KCYM NJARAKKADU (@kcymnjarakkaduofficial)</a>
+                style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;margin:8px 0 0;padding:8px 0 6px;text-align:center;">
+                <a href="https://www.instagram.com/p/Dbdk2JFE37n/?utm_source=ig_embed&utm_campaign=loading"
+                  style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;"
+                  target="_blank">
+                  A post shared by Asq | Creative Developer (@asq.create)</a>
               </p>
             </div>
           </blockquote>
@@ -1147,11 +1258,42 @@
 
         <div class="post">
           <blockquote class="instagram-media"
-            data-instgrm-permalink="https://www.instagram.com/reel/DbM5UhihTHa/?utm_source=ig_embed&amp;utm_campaign=loading"
+            data-instgrm-permalink="https://www.instagram.com/p/DbQJPcDiHWS/?utm_source=ig_embed&utm_campaign=loading"
+            data-instgrm-version="14"
+            style="background:#FFF;border:0;border-radius:0;box-shadow:none;margin:0;max-width:none;min-width:0;padding:0;width:100%;">
+            <div style="padding:16px;">
+              <a href="https://www.instagram.com/p/DbQJPcDiHWS/?utm_source=ig_embed&utm_campaign=loading"
+                style="background:#FFF;line-height:0;padding:0;text-align:center;text-decoration:none;width:100%"
+                target="_blank">
+                <div style="display:flex;flex-direction:row;align-items:center;">
+                  <div style="background:#F4F4F4;border-radius:50%;height:40px;margin-right:14px;width:40px;"></div>
+                  <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;">
+                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;"></div>
+                    <div style="background:#F4F4F4;border-radius:4px;height:14px;width:60px;"></div>
+                  </div>
+                </div>
+                <div style="padding:19% 0;"></div>
+                <div style="color:#3897f0;font-family:Arial,sans-serif;font-size:14px;font-weight:600;padding-top:8px;">
+                  View this post on Instagram</div>
+              </a>
+              <p
+                style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;margin:8px 0 0;padding:8px 0 6px;text-align:center;">
+                <a href="https://www.instagram.com/p/DbQJPcDiHWS/?utm_source=ig_embed&utm_campaign=loading"
+                  style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;"
+                  target="_blank">
+                  A post shared by St Joseph's KCYM NJARAKKADU (@kcym.njarakkadu)</a>
+              </p>
+            </div>
+          </blockquote>
+        </div>
+
+        <div class="post">
+          <blockquote class="instagram-media"
+            data-instgrm-permalink="https://www.instagram.com/p/DbM9zP2hFXk/?utm_source=ig_embed&utm_campaign=loading"
             data-instgrm-version="14"
             style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
             <div style="padding:16px;"> <a
-                href="https://www.instagram.com/reel/DbM5UhihTHa/?utm_source=ig_embed&amp;utm_campaign=loading"
+                href="https://www.instagram.com/p/DbM9zP2hFXk/?utm_source=ig_embed&utm_campaign=loading"
                 style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;"
                 target="_blank">
                 <div style=" display: flex; flex-direction: row; align-items: center;">
@@ -1231,9 +1373,103 @@
               </a>
               <p
                 style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">
-                <a href="https://www.instagram.com/reel/DbM5UhihTHa/?utm_source=ig_embed&amp;utm_campaign=loading"
+                <a href="https://www.instagram.com/p/DbM9zP2hFXk/?utm_source=ig_embed&utm_campaign=loading"
                   style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;"
-                  target="_blank">A post shared by St Joseph&#39;s KCYM NJARAKKADU (@kcymnjarakkaduofficial)</a>
+                  target="_blank">A post shared by St Joseph&#39;s KCYM NJARAKKADU (@kcym.njarakkadu)</a>
+              </p>
+            </div>
+          </blockquote>
+        </div>
+
+        <div class="post">
+          <blockquote class="instagram-media"
+            data-instgrm-permalink="https://www.instagram.com/reel/DbM5UhihTHa/?utm_source=ig_embed&utm_campaign=loading"
+            data-instgrm-version="14"
+            style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+            <div style="padding:16px;"> <a
+                href="https://www.instagram.com/reel/DbM5UhihTHa/?utm_source=ig_embed&utm_campaign=loading"
+                style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;"
+                target="_blank">
+                <div style=" display: flex; flex-direction: row; align-items: center;">
+                  <div
+                    style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;">
+                  </div>
+                  <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">
+                    <div
+                      style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;">
+                    </div>
+                    <div
+                      style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;">
+                    </div>
+                  </div>
+                </div>
+                <div style="padding: 19% 0;"></div>
+                <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px"
+                    viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg"
+                    xmlns:xlink="https://www.w3.org/1999/xlink">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g transform="translate(-511.000000, -20.000000)" fill="#000000">
+                        <g>
+                          <path
+                            d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631">
+                          </path>
+                        </g>
+                      </g>
+                    </g>
+                  </svg></div>
+                <div style="padding-top: 8px;">
+                  <div
+                    style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">
+                    View this post on Instagram</div>
+                </div>
+                <div style="padding: 12.5% 0;"></div>
+                <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
+                  <div>
+                    <div
+                      style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);">
+                    </div>
+                    <div
+                      style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;">
+                    </div>
+                    <div
+                      style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);">
+                    </div>
+                  </div>
+                  <div style="margin-left: 8px;">
+                    <div
+                      style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;">
+                    </div>
+                    <div
+                      style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)">
+                    </div>
+                  </div>
+                  <div style="margin-left: auto;">
+                    <div
+                      style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);">
+                    </div>
+                    <div
+                      style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);">
+                    </div>
+                    <div
+                      style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);">
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;">
+                  <div
+                    style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;">
+                  </div>
+                  <div
+                    style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;">
+                  </div>
+                </div>
+              </a>
+              <p
+                style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">
+                <a href="https://www.instagram.com/reel/DbM5UhihTHa/?utm_source=ig_embed&utm_campaign=loading"
+                  style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;"
+                  target="_blank">A post shared by St Joseph&#39;s KCYM NJARAKKADU (@kcym.njarakkadu)</a>
               </p>
             </div>
           </blockquote>
@@ -1251,7 +1487,8 @@
                 <div style="display:flex;flex-direction:row;align-items:center;">
                   <div style="background:#F4F4F4;border-radius:50%;height:40px;margin-right:14px;width:40px;"></div>
                   <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;">
-                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;"></div>
+                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;">
+                    </div>
                     <div style="background:#F4F4F4;border-radius:4px;height:14px;width:60px;"></div>
                   </div>
                 </div>
@@ -1264,7 +1501,7 @@
                 <a href="https://www.instagram.com/p/DbK8zm5IUL2/?utm_source=ig_embed&utm_campaign=loading"
                   style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;"
                   target="_blank">
-                  A post shared by St Joseph's KCYM NJARAKKADU (@kcymnjarakkaduofficial)</a>
+                  A post shared by St Joseph's KCYM NJARAKKADU (@kcym.njarakkadu)</a>
               </p>
             </div>
           </blockquote>
@@ -1282,7 +1519,8 @@
                 <div style="display:flex;flex-direction:row;align-items:center;">
                   <div style="background:#F4F4F4;border-radius:50%;height:40px;margin-right:14px;width:40px;"></div>
                   <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;">
-                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;"></div>
+                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;">
+                    </div>
                     <div style="background:#F4F4F4;border-radius:4px;height:14px;width:60px;"></div>
                   </div>
                 </div>
@@ -1295,7 +1533,7 @@
                 <a href="https://www.instagram.com/p/DbK8pkWINWy/?utm_source=ig_embed&utm_campaign=loading"
                   style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;"
                   target="_blank">
-                  A post shared by St Joseph's KCYM NJARAKKADU (@kcymnjarakkaduofficial)</a>
+                  A post shared by St Joseph's KCYM NJARAKKADU (@kcym.njarakkadu)</a>
               </p>
             </div>
           </blockquote>
@@ -1313,7 +1551,8 @@
                 <div style="display:flex;flex-direction:row;align-items:center;">
                   <div style="background:#F4F4F4;border-radius:50%;height:40px;margin-right:14px;width:40px;"></div>
                   <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;">
-                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;"></div>
+                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;">
+                    </div>
                     <div style="background:#F4F4F4;border-radius:4px;height:14px;width:60px;"></div>
                   </div>
                 </div>
@@ -1326,7 +1565,7 @@
                 <a href="https://www.instagram.com/p/DbGaXgEE4ak/?utm_source=ig_embed&utm_campaign=loading"
                   style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;"
                   target="_blank">
-                  A post shared by St Joseph's KCYM NJARAKKADU (@kcymnjarakkaduofficial)</a>
+                  A post shared by St Joseph's KCYM NJARAKKADU (@kcym.njarakkadu)</a>
               </p>
             </div>
           </blockquote>
@@ -1344,7 +1583,8 @@
                 <div style="display:flex;flex-direction:row;align-items:center;">
                   <div style="background:#F4F4F4;border-radius:50%;height:40px;margin-right:14px;width:40px;"></div>
                   <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;">
-                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;"></div>
+                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;">
+                    </div>
                     <div style="background:#F4F4F4;border-radius:4px;height:14px;width:60px;"></div>
                   </div>
                 </div>
@@ -1357,7 +1597,7 @@
                 <a href="https://www.instagram.com/p/DbDteTME99F/?utm_source=ig_embed&utm_campaign=loading"
                   style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;"
                   target="_blank">
-                  A post shared by St Joseph's KCYM NJARAKKADU (@kcymnjarakkaduofficial)</a>
+                  A post shared by St Joseph's KCYM NJARAKKADU (@kcym.njarakkadu)</a>
               </p>
             </div>
           </blockquote>
@@ -1375,7 +1615,8 @@
                 <div style="display:flex;flex-direction:row;align-items:center;">
                   <div style="background:#F4F4F4;border-radius:50%;height:40px;margin-right:14px;width:40px;"></div>
                   <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;">
-                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;"></div>
+                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;">
+                    </div>
                     <div style="background:#F4F4F4;border-radius:4px;height:14px;width:60px;"></div>
                   </div>
                 </div>
@@ -1388,42 +1629,14 @@
                 <a href="https://www.instagram.com/p/DbA6ibRkx6T/?utm_source=ig_embed&utm_campaign=loading"
                   style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;"
                   target="_blank">
-                  A post shared by St Joseph's KCYM NJARAKKADU (@kcymnjarakkaduofficial)</a>
+                  A post shared by St Joseph's KCYM NJARAKKADU (@kcym.njarakkadu)</a>
               </p>
             </div>
           </blockquote>
         </div>
 
-        <div class="post">
-          <blockquote class="instagram-media"
-            data-instgrm-permalink="https://www.instagram.com/p/Da767lhTXL7/?utm_source=ig_embed&utm_campaign=loading"
-            data-instgrm-version="14"
-            style="background:#FFF;border:0;border-radius:0;box-shadow:none;margin:0;max-width:none;min-width:0;padding:0;width:100%;">
-            <div style="padding:16px;">
-              <a href="https://www.instagram.com/p/Da767lhTXL7/?utm_source=ig_embed&utm_campaign=loading"
-                style="background:#FFF;line-height:0;padding:0;text-align:center;text-decoration:none;width:100%"
-                target="_blank">
-                <div style="display:flex;flex-direction:row;align-items:center;">
-                  <div style="background:#F4F4F4;border-radius:50%;height:40px;margin-right:14px;width:40px;"></div>
-                  <div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;">
-                    <div style="background:#F4F4F4;border-radius:4px;height:14px;margin-bottom:6px;width:100px;"></div>
-                    <div style="background:#F4F4F4;border-radius:4px;height:14px;width:60px;"></div>
-                  </div>
-                </div>
-                <div style="padding:19% 0;"></div>
-                <div style="color:#3897f0;font-family:Arial,sans-serif;font-size:14px;font-weight:600;padding-top:8px;">
-                  View this post on Instagram</div>
-              </a>
-              <p
-                style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;margin:8px 0 0;padding:8px 0 6px;text-align:center;">
-                <a href="https://www.instagram.com/p/Da767lhTXL7/?utm_source=ig_embed&utm_campaign=loading"
-                  style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:13px;text-decoration:none;"
-                  target="_blank">
-                  A post shared by St Joseph's KCYM NJARAKKADU (@kcymnjarakkaduofficial)</a>
-              </p>
-            </div>
-          </blockquote>
-        </div>
+
+
       </div>
 
       <div class="carousel-nav">
@@ -1432,7 +1645,7 @@
       </div>
     </div>
   </section>
-  END INSTAGRAM COMMENT -->
+
 
   <!-- FOOTER -->
   <footer class="footer">
@@ -1446,7 +1659,7 @@
     </div>
   </footer>
 
-  <!-- <script async src="https://www.instagram.com/embed.js"></script> -->
+  <script async src="https://www.instagram.com/embed.js"></script>
   <script>
     window.addEventListener('load', function () {
       var el = document.getElementById('loader');
@@ -1456,19 +1669,173 @@
       }, 350);
     });
 
-    /* Instagram carousel nav - commented out for now
+
+
     const postsContainer = document.getElementById('instaPosts');
     const prevBtn = document.getElementById('prevPost');
     const nextBtn = document.getElementById('nextPost');
-    if (postsContainer && prevBtn && nextBtn) {
-      prevBtn.addEventListener('click', function () {
-        postsContainer.scrollBy({ left: -310, behavior: 'smooth' });
+
+    if (postsContainer) {
+      const posts = Array.from(postsContainer.querySelectorAll('.post'));
+      let currentIndex = 0;
+      let isJumping = false;
+      let isDragging = false;
+      let dragStartX = 0;
+      let dragScrollLeft = 0;
+      let dragVelocity = 0;
+      let lastDragX = 0;
+      let lastDragTime = 0;
+      let snapTimer = null;
+
+      function getPostWidth() {
+        return posts[0] ? posts[0].offsetWidth + 16 : 326;
+      }
+
+      function calcIndex() {
+        var idx = Math.round(postsContainer.scrollLeft / getPostWidth());
+        return Math.max(0, Math.min(idx, posts.length - 1));
+      }
+
+      function scrollToPost(index, smooth) {
+        if (!posts[index]) return;
+        isJumping = !smooth;
+        currentIndex = index;
+        postsContainer.scrollTo({
+          left: posts[index].offsetLeft,
+          behavior: smooth ? 'smooth' : 'instant'
+        });
+        if (!smooth) setTimeout(function () { isJumping = false; }, 60);
+      }
+
+      function snapNearest() {
+        var idx = calcIndex();
+        /* infinite wrap after drag */
+        if (idx >= posts.length - 1 && postsContainer.scrollLeft >= posts[posts.length - 1].offsetLeft + getPostWidth() * 0.6) {
+          scrollToPost(0, false);
+        } else if (idx <= 0 && postsContainer.scrollLeft <= -getPostWidth() * 0.4) {
+          scrollToPost(posts.length - 1, false);
+        } else {
+          scrollToPost(idx, true);
+        }
+      }
+
+      /* ── Mouse drag ── */
+      postsContainer.addEventListener('mousedown', function (e) {
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragScrollLeft = postsContainer.scrollLeft;
+        lastDragX = e.clientX;
+        lastDragTime = Date.now();
+        dragVelocity = 0;
+        postsContainer.classList.add('is-dragging');
+        clearTimeout(snapTimer);
       });
-      nextBtn.addEventListener('click', function () {
-        postsContainer.scrollBy({ left: 310, behavior: 'smooth' });
+
+      window.addEventListener('mousemove', function (e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        var now = Date.now();
+        var dt = now - lastDragTime || 1;
+        dragVelocity = (e.clientX - lastDragX) / dt;
+        lastDragX = e.clientX;
+        lastDragTime = now;
+        postsContainer.scrollLeft = dragScrollLeft - (e.clientX - dragStartX);
       });
+
+      function endDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        postsContainer.classList.remove('is-dragging');
+        /* flick momentum: shift index by velocity direction */
+        var idx = calcIndex();
+        if (dragVelocity < -0.3 && idx < posts.length - 1) idx++;
+        else if (dragVelocity > 0.3 && idx > 0) idx--;
+        /* infinite wrap */
+        if (idx >= posts.length) idx = 0;
+        if (idx < 0) idx = posts.length - 1;
+        scrollToPost(idx, true);
+      }
+
+      window.addEventListener('mouseup', endDrag);
+      window.addEventListener('mouseleave', endDrag);
+      postsContainer.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+      /* ── Touch swipe (snap with infinite wrap) ── */
+      var touchStartX = 0;
+      var touchStartScroll = 0;
+
+      postsContainer.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartScroll = postsContainer.scrollLeft;
+        clearTimeout(snapTimer);
+      }, { passive: true });
+
+      postsContainer.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var idx = calcIndex();
+        if (dx < -30 && idx < posts.length - 1) idx++;         /* swipe left → next */
+        else if (dx < -30 && idx >= posts.length - 1) idx = 0;  /* wrap to first */
+        else if (dx > 30 && idx > 0) idx--;                     /* swipe right → prev */
+        else if (dx > 30 && idx <= 0) idx = posts.length - 1;   /* wrap to last */
+        scrollToPost(idx, true);
+      }, { passive: true });
+
+      /* ── Buttons ── */
+      if (prevBtn && nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          var idx = currentIndex >= posts.length - 1 ? 0 : currentIndex + 1;
+          scrollToPost(idx, true);
+          resetAutoPlay();
+        });
+        prevBtn.addEventListener('click', function () {
+          var idx = currentIndex <= 0 ? posts.length - 1 : currentIndex - 1;
+          scrollToPost(idx, true);
+          resetAutoPlay();
+        });
+      }
+
+      /* sync index on native scroll */
+      postsContainer.addEventListener('scroll', function () {
+        if (isJumping || isDragging) return;
+        currentIndex = calcIndex();
+      });
+
+      /* ── Auto-play: advance every 3 seconds ── */
+      var autoPlayInterval = null;
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        autoPlayInterval = setInterval(function () {
+          var idx = currentIndex >= posts.length - 1 ? 0 : currentIndex + 1;
+          scrollToPost(idx, true);
+        }, 2500);
+      }
+
+      function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = null;
+      }
+
+      function resetAutoPlay() {
+        startAutoPlay();
+      }
+
+      /* pause while finger is on screen, resume after lift */
+      postsContainer.addEventListener('touchstart', stopAutoPlay, { passive: true });
+      postsContainer.addEventListener('touchend', function () {
+        setTimeout(startAutoPlay, 1500);
+      }, { passive: true });
+
+      /* pause while mouse-dragging, resume on release */
+      postsContainer.addEventListener('mousedown', stopAutoPlay);
+      window.addEventListener('mouseup', function () {
+        setTimeout(startAutoPlay, 500);
+      });
+
+      /* start immediately */
+      startAutoPlay();
     }
-    */
+
 
     let formLoadCount = 0;
     function handleFormLoad() {
